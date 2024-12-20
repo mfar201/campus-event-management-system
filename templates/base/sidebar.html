@@ -1,0 +1,130 @@
+{% load static %}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+      <img src="{% static 'img/logo.jpg' %}" alt="Logo" class="brand-image elevation-3"
+           style="opacity: .8">
+      {% if request.user.userprofile.role == 'admin' %}
+      <span class="brand-text font-weight-light">Admin Panel</span>
+      {% endif %}
+      {% if request.user.userprofile.role == 'club_president' %}
+      <span class="brand-text font-weight-light">Club President Panel</span>
+      {% endif %}
+      {% if request.user.userprofile.role == 'student' %}
+      <span class="brand-text font-weight-light">Student Panel</span>
+      {% endif %}
+      {% if request.user.userprofile.role == 'faculty' %}
+      <span class="brand-text font-weight-light">Faculty Panel</span>
+      {% endif %}
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{% static 'img/user.png' %}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">{{ username }}</a> <!-- Display current username -->
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+        {% if request.user.userprofile.role == 'admin' %} 
+         <li class="nav-item">
+            <a href="{% url 'dashboard' %}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+        {% endif %}
+        {% if request.user.userprofile.role == 'admin' or request.user.userprofile.role == 'club_president' %}
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-folder"></i>
+              <p>
+                Event Category
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              {% if request.user.userprofile.role == 'admin' or request.user.userprofile.role == 'club_president' %}
+              <li class="nav-item">
+                <a href="{% url 'create-event-category' %}" class="nav-link">
+                  <i class="far fa fa-edit nav-icon"></i>
+                  <p>Create Category</p>
+                </a>
+              </li>
+              {% endif %}
+              {% if request.user.userprofile.role == 'admin' or request.user.userprofile.role == 'club_president' %}
+              <li class="nav-item">
+                <a href="{% url 'event-category-list' %}" class="nav-link">
+                  <i class="far fa fa-list nav-icon"></i>
+                  <p>Category List</p>
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </li>
+          {% endif %}
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-calendar"></i>
+              <p>
+                Events
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              {% if request.user.userprofile.role == 'admin' or request.user.userprofile.role == 'club_president' %}
+              <li class="nav-item">
+                <a href="{% url 'event-create' %}" class="nav-link">
+                  <i class="far fa fa-edit nav-icon"></i>
+                  <p>Create Event</p>
+                </a>
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                <a href="{% url 'event-list' %}" class="nav-link">
+                  <i class="far fa fa-list nav-icon"></i>
+                  <p>Event List</p>
+                </a>
+              </li>
+              {% if request.user.userprofile.role == 'admin' or request.user.userprofile.role == 'club_president' %}
+              <li class="nav-item">
+                <a href="{% url 'add-event-member' %}" class="nav-link">
+                  <i class="far fa fa-edit nav-icon"></i>
+                  <p>Add Event Member</p>
+                </a>
+              </li>
+              {% endif %}
+              {% if request.user.userprofile.role == 'admin' or request.user.userprofile.role == 'club_president' %}
+              <li class="nav-item">
+                <a href="{% url 'join-event-list' %}" class="nav-link">
+                  <i class="far fa fa-list nav-icon"></i>
+                  <p>Join Event List</p>
+                </a>
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                <a href="{% url 'complete-event' %}" class="nav-link">
+                  <i class="far fa fa-list nav-icon"></i>
+                  <p>Complete Event List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
